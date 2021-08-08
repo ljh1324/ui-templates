@@ -1,0 +1,45 @@
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .pie {
+                width: 100px; height: 100px;
+                border-radius: 50%;
+                background: yellowgreen;
+                background-image: linear-gradient(to right, transparent 50%, currentColor 0);
+                color: #655;
+            }
+
+            .pie::before {
+                content: '';
+                display: block;
+                margin-left: 50%;
+                height: 100%;
+                border-radius: 0 100% 100% 0 / 50%; /* 반원 생성 */
+                background-color: inherit;          /* 부모 속성 상속 */
+                transform-origin: left;             /* = (left center) */
+                /* 
+                    steps(<integer>, start | end): 애니메이션을 똑같은 길이의 스텝으로 나누어 실행. 
+                    첫 번째 매개변수는 스텝 수
+                    두 번째 매개변수는 start 혹은 end. start는 첫 번째 스텝에서 변하는 내용을 스텝이 시작할 때 바꾸도록 함. end는 스텝이 끝날 때 바뀐 내용을 반영
+                */
+                animation: spin 50s linear infinite, bg 100s step-end infinite; /* step-end = steps(1, end) = 첫 번째 스텝이 끝날 때 스텝 변환. ex) 스텝 길이가 200밀리초라면 첫 번째 바뀌는 프로퍼티 값은 애니메이션의 전체 지속 시간 중 200밀리초가 지나야 반영 */
+                animation-play-state: paused;       /* 애니메이션 정지 */
+                animation-delay: inherit;           /* 부모 속성 상속 */
+            }
+
+            @keyframes spin {
+                to { transform: rotate(.5turn); }
+            }
+            @keyframes bg {
+                50% { background: currentColor; }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- animation-delay에 음수 값을 사용하면 즉시 시작하면서 중간부터 시작. animation-timing-function 값에 따라 시작 지점이 다를 수 있음 -->
+        <!-- 즉 음수 값은 마이너스의 딜레이를 준다는 것을 의미 -->
+        <div class="pie" style="animation-delay: -20s;">20%</div>
+        <div class="pie" style="animation-delay: -50s;">50%</div>
+    </body>
+</html>
