@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <style>
+            .container {
+                overflow: hidden;
+                position: relative;
+                width: 300px;
+                height: 50px;
+                border: 1px solid #000;
+            }
+
+            .scrollable {
+                overflow: scroll;
+                height: 50px;
+                margin-bottom: -35px;
+                padding-bottom: 35px;
+                white-space: nowrap;
+            }
+
+            .thumbnail {
+                display: inline-block;
+                overflow: hidden;
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: gray;
+                vertical-align: top;
+            }
+
+            .thumbnail + .thumbnail {
+                margin-left: 10px;
+            }
+
+            .thumbnail img {
+                width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div class="scrollable">
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+                <div class="thumbnail">
+                    <img src="./jake.png"/>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
