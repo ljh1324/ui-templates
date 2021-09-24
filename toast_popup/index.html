@@ -118,6 +118,64 @@
         .toast_layer2 .image {
             padding: 20px;
         }
+
+        .toast_layer3 {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+        }
+
+        .toast_layer3::before {
+            display: block;
+            height: 100%;
+            transition: height 0.5s ease-in-out;
+            content: '';
+        }
+
+        .toast_layer3.is_active {
+            z-index: 10000;
+            opacity: 1;
+        }
+
+        .toast_layer3.is_active::before {
+            height: 100px;
+        }
+
+        .toast_layer3.is_active .toast_popup {
+            opacity: 1;
+        }
+
+        .toast_layer3 .toast_popup {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            height: calc(100% - 100px);
+            border-radius: 20px 20px 0 0;
+            background-color: #fff;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .toast_layer3 .toast_title {
+            padding: 0 60px 0 20px;
+            height: 50px;
+            line-height: 52px;
+        }
+
+        .toast_layer3 .toast_contents {
+            flex: 1;
+            overflow-y: scroll;
+            border-top: 1px solid #ebebeb;
+        }
+
+        .toast_layer3 .image {
+            padding: 20px;
+        }
     </style>
     <script>
         function onClick(id) {
@@ -147,6 +205,19 @@
 <h2>2. 토스트 팝업 (flex 사용)</h2>
 <button type="button" onclick="onClick('popup2')">팝업 열기</button>
 <div class="toast_layer2" id="popup2" onclick="onCloseClick(this)">
+    <div class="toast_popup">
+        <div class="toast_title">타이틀</div>
+        <div class="toast_contents">
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+        </div>
+    </div>
+</div>
+<h2>2. 토스트 팝업 (height 사용)</h2>
+<button type="button" onclick="onClick('popup3')">팝업 열기</button>
+<div class="toast_layer3" id="popup3" onclick="onCloseClick(this)">
     <div class="toast_popup">
         <div class="toast_title">타이틀</div>
         <div class="toast_contents">
