@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <style>
+            img {
+                width: 100%;
+                vertical-align: top;
+            }
+
+            .popup {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 10000;
+                overflow: auto;
+                background: rgba(0, 0, 0, 0.7);
+                text-align: center;
+                white-space: nowrap;
+            }
+
+            .popup::before {
+                display: inline-block;
+                height: 100%;
+                margin-right: -4px;
+                vertical-align: middle;
+                content: '';
+            }
+
+            .popup .contents {
+                display: inline-block;
+                width: 320px;
+                vertical-align: middle;
+            }
+
+            .popup2 {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 10000;
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            .popup2 .title {
+                position: absolute;
+                top: 20px;
+                left: 0;
+                right: 0;
+                border-radius: 10px 10px 0 0;
+                background: skyblue;
+                line-height: 30px;
+                text-align: center;
+            }
+
+            .popup2 .scrollable {
+                position: absolute;
+                top: 50px;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                overflow: scroll;
+                background: #fff;
+            }
+
+            .popup2 .image {
+                padding: 30px;
+            }
+
+            .popup3 {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 10000;
+                background: rgba(0, 0, 0, 0.7);
+                overflow: scroll;  /* 스크롤 가능하도록 함 */
+            }
+
+            .popup3 .title {
+                display: block;
+                margin-top: 20px;
+                border-radius: 10px 10px 0 0;
+                background: skyblue;
+                line-height: 30px;
+                text-align: center;
+            }
+
+            .popup3 .contents {
+                min-height: calc(100% - 50px); /* .popup3 와 같은 높이.  */
+                box-sizing: border-box;
+                background: #fff;
+                background-clip: content-box;
+            }
+
+            .popup3 .image {
+                padding: 30px;
+            }
+
+            .popup4 {
+                position: fixed;
+                top: 0;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                z-index: 10000;
+                background: rgba(0, 0, 0, 0.7);
+            }
+
+            .popup4 .contents {
+                min-height: 100%; /* .popup4 와 같은 높이. 스크롤이 되지 않아 margin-top: 20px이 있어도 잘려서 보임 */
+                margin-top: 20px;
+                box-sizing: border-box;
+                border-radius: 10px 10px 0 0;
+                background: #fff;
+                background-clip: content-box;
+            }
+
+            .popup4 .image {
+                padding: 30px;
+            }
+        </style>
+        <script>
+            function onClick(id) {
+                const element = document.getElementById(id);
+                element.style.display = 'block';
+            }
+
+            function onCloseClick(e) {
+                console.log(e);
+                e.style.display = 'none';
+            }
+        </script>
+    </head>
+    <body>
+        <h2>1. 중앙 정렬 팝업</h2>
+        <button type="button" onclick="onClick('popup')">팝업 열기</button>
+        <div class="popup" id="popup" style="display: none" onclick="onCloseClick(this)">
+            <div class="contents">
+                <img src="https://i.imgur.com/iW6yGYD.gif" width="320">
+            </div>
+        </div>
+        <h2>2. 아래 정렬 팝업 (스크롤 가능)</h2>
+        <button type="button" onclick="onClick('popup2')">팝업 열기</button>
+        <div class="popup2" id="popup2" style="display: none" onclick="onCloseClick(this)">
+            <strong class="title">타이틀</strong>
+            <div class="scrollable">
+                <div class="contents">
+                    <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                    <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                    <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                    <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                </div>
+            </div>
+        </div>
+        <h2>3. 아래 정렬 팝업 (스크롤 가능. 타이틀 까지 스크롤 되도록)</h2>
+        <button type="button" onclick="onClick('popup3')">팝업 열기</button>
+        <div class="popup3" id="popup3" style="display: none" onclick="onCloseClick(this)">
+            <strong class="title">타이틀</strong>
+            <div class="contents">
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            </div>
+        </div>
+        <h2>4. 아래 정렬 팝업 (스크롤 불가)</h2>
+        <button type="button" onclick="onClick('popup4')">팝업 열기</button>
+        <div class="popup4" id="popup4" style="display: none" onclick="onCloseClick(this)">
+            <div class="contents">
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+                <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            </div>
+        </div>
+    </body>
+</html>
