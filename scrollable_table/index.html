@@ -53,6 +53,10 @@
                 border: 1px solid black;
             }
 
+            .table_area3.type_2 {
+                padding-right: 50px;
+            }
+
             .table_area3 .table_wrap {
                 overflow: scroll;
             }
@@ -61,6 +65,11 @@
                 position: absolute;
                 top: 0;
                 left: 0;
+            }
+
+            .table_area3 .list:last-child {
+                left: auto;
+                right: 0;
             }
 
             .blind {
@@ -158,6 +167,40 @@
                     </tbody>
                 </table>
             </div>
+        </div>
+        <h2>4. 스크롤 가능 테이블 위에 두 개의 리스트를 양쪽에 absolute 로 띄운 경우</h2>
+        <div class="table_area3 type_2">
+            <ul class="list">
+                <li>아이템1</li>
+                <li>아이템2</li>
+            </ul>
+            <div class="table_wrap">
+                <table class="table">
+                    <caption><span class="blind">테이블2</span></caption>
+                    <thead>
+                    <tr>
+                        <td>안녕하세요1</td>
+                        <td>안녕하세요2</td>
+                        <td>안녕하세요3</td>
+                        <td>안녕하세요4</td>
+                        <td>안녕하세요5</td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <td>안녕하세요1</td>
+                        <td>안녕하세요2</td>
+                        <td>안녕하세요3</td>
+                        <td>안녕하세요4</td>
+                        <td>안녕하세요5</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <ul class="list">
+                <li>아이템1</li>
+                <li>아이템2</li>
+            </ul>
         </div>
     </body>
 </html>
