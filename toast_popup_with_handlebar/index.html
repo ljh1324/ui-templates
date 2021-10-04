@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <style>
+        img {
+            width: 100%;
+            vertical-align: top;
+        }
+
+        .toast_layer {
+            z-index: -1;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            opacity: 0;
+        }
+
+        .toast_layer.is_active {
+            z-index: 10000;
+            opacity: 1;
+        }
+
+        .toast_layer.is_active .toast_popup {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .toast_layer .toast_popup {
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            max-height: calc(100% - 100px);
+            margin-top: 100px;
+            border-radius: 20px 20px 0 0;
+            background-color: #fff;
+            opacity: 0;
+            transform: translateY(100vh);
+            transition: all 0.5s ease-in-out;
+            transition-property: transform, opacity;
+        }
+
+        .toast_layer .toast_title {
+            position: relative;
+            padding: 0 60px 0 20px;
+            height: 50px;
+            line-height: 52px;
+        }
+
+        .toast_layer .toast_title .handle {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            right: 0;
+            width: 20px;
+            height: 20px;
+            margin: auto;
+            background: #f00;
+        }
+
+        .toast_layer .toast_contents {
+            flex: 1;
+            overflow-y: scroll;
+            border-top: 1px solid #ebebeb;
+        }
+
+        .toast_layer .image {
+            padding: 20px;
+        }
+    </style>
+    <script>
+        let isHandleBarClicked = false;
+        let originY, originTime;
+
+        function onClick(id) {
+            const element = document.getElementById(id);
+            element.classList.add('is_active');
+        }
+
+        function closePopup() {
+            const toastLayer = document.getElementById('toast_layer');
+            const toastPopup = document.getElementById('toast_popup');
+
+            toastPopup.style.transform = 'translateY(100vh)';
+            setTimeout(() => {
+                toastLayer.classList.remove('is_active');
+                toastPopup.style.transform = '';
+            }, 500);
+        }
+
+        function onHandlebarMouseDown(e) {
+            const toastPopup = document.getElementById('toast_popup');
+            toastPopup.style.transition = 'all 0.1s ease-in-out';
+            
+            isHandleBarClicked = true;
+            originY = e.clientY;
+            originTime = Date.now();
+        }
+
+        function onHandlebarMouseUp(e) {
+            isHandleBarClicked = false;
+        }
+
+        function onMouseMove(e) {
+            if (isHandleBarClicked) {
+                if (Date.now() - originTime < 100) {
+                    return;
+                }
+                const toastPopup = document.getElementById('toast_popup');
+                const deltaY =  e.clientY - originY;
+                originTime = Date.now();
+
+                if (deltaY > 0) {
+                    toastPopup.style.transform = `translateY(${deltaY}px)`;
+                }
+            }
+        }
+
+        function onMouseUp(e) {
+            if (isHandleBarClicked) {
+                const toastPopup = document.getElementById('toast_popup');
+                const deltaY =  e.clientY - originY;
+                
+                toastPopup.style.transitionDelay = '';
+                isHandleBarClicked = false;
+
+                if (deltaY > 200) {
+                    closePopup();
+                } else {
+                    toastPopup.style.transform = '';
+                }
+            }
+        }
+
+        window.onload = function() {
+            const handlebar = document.getElementById('handle');
+            handlebar.addEventListener('mousedown', onHandlebarMouseDown);
+            document.body.addEventListener('mousemove', onMouseMove);
+            document.body.addEventListener('mouseup', onMouseUp);
+        };
+    </script>
+</head>
+<body>
+<h2>1. 토스트 팝업 (핸들바 포함)</h2>
+<button type="button" onclick="onClick('toast_layer')">팝업 열기</button>
+<div id="toast_layer" class="toast_layer">
+    <div id="toast_popup" class="toast_popup">
+        <div class="toast_title">타이틀<i id="handle" class="handle"></i></div>
+        <div class="toast_contents">
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+            <div class="image"><img src="https://i.imgur.com/iW6yGYD.gif" width="320"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
