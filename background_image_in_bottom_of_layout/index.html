@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <style>
+            html {
+                min-height: 100%;
+                margin: 0;
+                padding: 0;
+                text-align: center;
+            }
+
+            body {
+                min-height: 100%;
+                margin: 0;
+                padding: 0;
+                background: #FFF url(./minion.png) no-repeat bottom center;
+            }
+
+            .button_add {
+                width: 200px;
+                height: 50px;
+                margin-top: 10px;
+                background: #f1c40f;
+                border: 0;
+                border-radius: 8px;
+                font-size: 16px;
+                color: #2c3e50;
+            }
+
+            .list {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+
+            .item {
+                margin-top: 20px;
+                height: 50px;
+                background: #ecf0f1;
+                border-radius: 8px;
+                line-height: 50px;
+            }
+        </style>
+    </head>
+    <body>
+        <button type="button" class="button_add">아이템 추가</button>
+        <ul class="list">
+            <li class="item">아이템</li>
+        </ul>
+        <script>
+            var button = document.querySelector('.button_add');
+            var list = document.querySelector('.list');
+
+            button.addEventListener('click', function() {
+               var newChild = document.createElement('li');
+               newChild.classList.add('item');
+               newChild.innerText = '아이템';
+
+               list.appendChild(newChild);
+            });
+        </script>
+    </body>
+</html>
