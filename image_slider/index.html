@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <style>
+        .image_slider {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image_slider > div {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            width: 50%;
+            overflow: hidden;
+        }
+
+        .image_slider img {
+            display: block;
+            height: 200px;
+            user-select: none;
+        }
+
+        .image_slider input {
+            position: absolute;
+            left: 0;
+            bottom: 10px;
+            width: 100%;
+            margin: 0;
+            filter: contrast(.5);
+            mix-blend-mode: luminosity;
+        }
+    </style>
+</head>
+<body>
+    <!-- CSS 시크릿 > 35. 상호작용 이미지 비교 -->
+    <div class="image_slider">
+        <img src="./jake.png"/>
+        <img src="./jake2.png"/>
+    </div>
+    <script>
+        document.querySelectorAll('.image_slider').forEach(function(slider) {
+            console.log(slider);
+
+            // 추가 div 생성. 첫 번째 이미지를 감싼다
+            var div = document.createElement('div');
+            var img = slider.querySelector('img');
+            slider.insertBefore(div, img);
+            div.appendChild(img);
+
+            // 슬라이더 생성
+            var range = document.createElement('input');
+            range.type = 'range';
+            range.oninput = function () {
+                div.style.width = this.value + '%';
+            };
+            slider.appendChild(range);
+        });
+    </script>
+</body>
+</html>
