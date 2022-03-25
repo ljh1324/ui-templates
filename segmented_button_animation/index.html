@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.min.css">
+    <style>
+        #radios {
+            position: relative;
+            background-color:tomato;
+            z-index:5;
+            width: 363px;
+        }
+        input {
+            display: none;
+        }
+        .background,
+        .labels {
+            width: 120px;
+            height: 30px;
+            text-align: center;
+            display: inline-block;
+            padding-top: 10px;
+            margin-right: -3px;
+            z-index: 2;
+            cursor: pointer;
+            outline: 1px solid green;
+        }
+        .background {
+            background-color: orange;
+            position: absolute;
+            left: 0;
+            top: 0;
+            z-index: -1;
+        }
+        #rad1:checked ~ .background {
+            transform: translateX(0);
+            transition: transform 0.5s ease-in-out;
+        }
+        #rad2:checked ~ .background {
+            transform: translateX(120px);
+            transition: transform 0.5s ease-in-out;
+        }
+        #rad3:checked ~ .background {
+            transform: translateX(241px);
+            transition: transform 0.5s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+<!-- 참고 페이지1: http://jsfiddle.net/Mi_Creativity/vd061yce/ -->
+<!-- 참고 페이지2: https://codepen.io/S-Maas/pen/NrYvdK -->
+<div id="radios">
+    <input id="rad1" type="radio" name="radioBtn" checked>
+    <label class="labels" for="rad1">First Option</label>
+    <input id="rad2" type="radio" name="radioBtn">
+    <label class="labels" for="rad2">Second Option</label>
+    <input id="rad3" type="radio" name="radioBtn">
+    <label class="labels" for="rad3">Third Option</label>
+    <div class="background"></div>
+</div>
+</body>
+</html>

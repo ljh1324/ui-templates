@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script type="text/javascript" src="https://naver.github.io/egjs/latest/dist/pkgd/flicking.pkgd.min.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/@egjs/flicking@4.0.0/dist/flicking.css">
+        <style>
+            .container {
+                text-align: center;
+            }
+
+            .flick-container {
+                overflow: hidden !important;
+                padding: 0;
+                border-radius: 12px;
+                transform: translateZ(0);
+            }
+
+            .flicking-panel {
+                width: 168px;
+                height: 217px;
+                margin: 0 5px;
+                background: salmon;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <div id="flick" class="flick-container">
+                <div class="flicking-panel">1</div>
+                <div class="flicking-panel">2</div>
+                <div class="flicking-panel">3</div>
+                <div class="flicking-panel">4</div>
+                <div class="flicking-panel">5</div>
+                <div class="flicking-panel">6</div>
+                <div class="flicking-panel">7</div>
+                <div class="flicking-panel">8</div>
+            </div>
+        </div>
+        <div class="button_area">
+            <button type="button" class="prev_button">이전</button>
+            <button type="button" class="next_button">다음</button>
+        </div>
+        <script type="text/javascript">
+            const nextButton = document.querySelector('.next_button');
+
+            const flicking = new eg.Flicking($("#flick"), {
+                previewPadding: [0,0],
+                moveType: "freeScroll",
+                bound: true
+            });
+
+            nextButton.addEventListener('click', function () {
+                console.log('123');
+               flicking.moveTo(6);
+            });
+        </script>
+    </body>
+</html>
