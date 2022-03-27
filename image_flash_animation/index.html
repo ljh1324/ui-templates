@@ -7,13 +7,23 @@
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.min.css">
     <style>
+        .image_area {
+            position: relative;
+        }
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
         .image {
             display: inline-block;
             position: relative;
             vertical-align: top;
         }
 
-        .image:before {
+        .image:after {
             position: absolute;
             left: 0;
             width: 50px;
@@ -40,8 +50,13 @@
 </head>
 <body>
 <div id="flick" class="flicking-viewport vertical">
-    <div class="image">
-        <img src="./jake.png"/>
+    <div class="image_area">
+        <div class="image">
+            <img src="./jake.png"/>
+        </div>
+        <div class="background">
+            <img src="./jake_background.png"/>
+        </div>
     </div>
 </div>
 </body>
