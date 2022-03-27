@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.min.css">
+    <style>
+        .path {
+            top: 0;
+            left: 0;
+            stroke-dasharray: 460;
+            animation: dash 5s linear infinite;
+        }
+
+        @keyframes dash {
+            to {
+                stroke-dashoffset: 1500;
+            }
+        }
+    </style>
+</head>
+<body>
+<!-- 참고: https://css-tricks.com/svg-line-animation-works/ -->
+<svg class="border" width="440" height="440">
+    <path class="path" d="M100,100 h200 a20,20 0 0 1 20,20 v200 a20,20 0 0 1 -20,20 h-200 a20,20 0 0 1 -20,-20 v-200 a20,20 0 0 1 20,-20 z" fill="none" stroke="black" stroke-width="3" />
+</svg>
+</body>
+</html>
