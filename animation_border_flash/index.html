@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.min.css">
+    <style>
+        .button {
+            overflow: hidden;
+            position: relative;
+            width: 100px;
+            height: 50px;
+            border-radius: 25px;
+            border: 0;
+            background: red;
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .button::before {
+            position: absolute;
+            top: -175px;
+            left: 50%;
+            height: 200px;
+            border-left: 10px solid #fff;
+            animation: rotate 1s linear infinite;
+            transform-origin: bottom;
+            content: '';
+        }
+
+        .button::after {
+            position: absolute;
+            top: 4px;
+            bottom: 4px;
+            left: 4px;
+            right: 4px;
+            background: red;
+            border-radius: 21px;
+            content: '';
+        }
+
+        .text {
+            position: relative;
+            z-index: 10;
+        }
+
+        @keyframes rotate{
+            from { transform: rotate(0deg); }
+            to{ transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <button class="button"><span class="text">NOW</span></button>
+</body>
+</html>
