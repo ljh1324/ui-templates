@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.min.css">
+    <style>
+        .image_area {
+            position: relative;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .image {
+            display: inline-block;
+            position: relative;
+            vertical-align: top;
+        }
+
+        .image:after {
+            position: absolute;
+            left: 0;
+            width: 50px;
+            height: 100%;
+            background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0));
+            transform: rotate(45deg);
+            transform-origin: bottom;
+            animation-name: flash;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+            content: '';
+        }
+
+        @keyframes flash {
+            from {
+                top: -100%;
+            }
+
+            to {
+                top: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+<div id="flick" class="flicking-viewport vertical">
+    <div class="image_area">
+        <div class="image">
+            <img id="image" src="./jake.png"/>
+        </div>
+        <canvas id="canvas"/>
+    </div>
+</div>
+</body>
+<script>
+    const $canvas = document.getElementById('canvas');
+    const $image = document.getElementById('image');
+    const ctx = $canvas.getContext('2d');
+    const width = $image.width;
+    const height = $image.height;
+
+    $canvas.width = width;
+    $canvas.height = height;
+
+    ctx.drawImage($image, 0, 0, width, height);
+
+    const imageData = ctx.getImageData(0, 0, width, height);
+    const data = imageData.data;
+
+    for (let i = 0; i < data.length; i += 4) {
+        if (data[i + 3] === 0) { // alpha 값이 0일 경우 투명. 이미지의 투명한 부분을 불투명한 부분으로 변환
+            data[i] = data[i + 1] = data[i + 2] = 255;
+            data[i + 3] = 255;
+        } else { // 이미지 부분을 투명하게 변환
+            data[i] = data[i + 1] = data[i + 2] = 255;
+            data[i + 3] = 0;
+        }
+    }
+    ctx.putImageData(imageData, 0, 0);
+</script>
+</html>
