@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.pkgd.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/egjs-flicking/4.4.2/flicking.min.css">
+    <style>
+        div, p{
+            line-height: 0.5em;
+            font-family: helvetica;
+            display: inline;
+        }
+
+        svg {
+            margin: 10px 10px;
+        }
+        input[type=range] {
+            width: 200px;
+            height: 10px;
+            margin: 15px 5px 10px 5px;
+
+        }
+    </style>
+</head>
+<body>
+<h1>feColorMatrix Generator
+</h1>
+
+<svg width="600px" height="400px" xmlns="http://www.w3.org/2000/svg" version="1.1">
+    <defs>
+        <filter id="f1" x="0%" y="0%" width="100%" height="100%">
+            <feColorMatrix result="original" id="c1" type="matrix" values="1 0 0 0 0
+                                                 0 1 0 0 0
+                                                 0 0 1 0 0
+                                                 0 0 0 1 0"/>
+        </filter>
+
+        <!--copy the feimage and feComposite elements below up into the previous filter to see effects of alpha conversion on a backgrounded image layer
+       -->
+    </defs>
+    <image x="0" y="0" width="590" height="400" filter="url(#f1)" xlink:href="https://mdn.mozillademos.org/files/6457/mdn_logo_only_color.png"/>
+</svg>
+
+<table border="1px">
+    <tr>
+        <td>
+            <p> Red to Red: </p>
+            <div id="R1-text">1</div>
+            <input type="range" id="R1" min="-1" max="2" step=".1" value="1"/>
+        </td>
+        <td>
+            <p>Green to Red: </p>
+            <div id="R2-text">0</div>
+            <input type="range" id="R2" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Blue to Red: </p>
+            <div id="R3-text">0</div>
+            <input type="range" id="R3" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Alpha to Red: </p>
+            <div id="R4-text">0</div>
+
+            <input type="range" id="R4" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Add to Red: </p>
+            <div id="R5-text">0</div>
+            <input type="range" id="R5" min="-1" max="2" step=".1" value="0"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Red to Green: </p>
+            <div id="G1-text">0</div>
+            <input type="range" id="G1" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Green to Green: </p>
+            <div id="G2-text">1</div>
+            <input type="range" id="G2" min="-1" max="2" step=".1" value="1"/>
+        </td>
+        <td>
+            <p>Blue to Green: </p>
+            <div id="G3-text">0</div>
+            <input type="range" id="G3" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Alpha to Green: </p>
+            <div id="G4-text">0</div>
+            <input type="range" id="G4" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Add to Green: </p>
+            <div id="G5-text">0</div>
+            <input type="range" id="G5" min="-1" max="2" step=".1" value="0"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Red to Blue: </p>
+            <div id="B1-text">0</div>
+            <input type="range" id="B1" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Green to Blue: </p>
+            <div id="B2-text">0</div>
+            <input type="range" id="B2" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Blue to Blue: </p>
+            <div id="B3-text">1</div>
+            <input type="range" id="B3" min="-1" max="2" step=".1" value="1"/>
+        </td>
+        <td>
+            <p>Alpha to Blue: </p>
+            <div id="B4-text">0</div>
+            <input type="range" id="B4" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Add to Blue: </p>
+            <div id="B5-text">0</div>
+            <input type="range" id="B5" min="-1" max="2" step=".1" value="0"/>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <p>Red to Alpha </p>
+            <div id="A1-text">0</div>
+            <input type="range" id="A1" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Green to Alpha: </p>
+            <div id="A2-text">0</div>
+            <input type="range" id="A2" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Blue to Alpha: </p>
+            <div id="A3-text">0</div>
+            <input type="range" id="A3" min="-1" max="2" step=".1" value="0"/>
+        </td>
+        <td>
+            <p>Alpha to Alpha: </p>
+            <div id="A4-text">0</div>
+            <input type="range" id="A4" min="-1" max="2" step=".1" value="1"/>
+        </td>
+        <td>
+            <p>Add to Alpha: </p>
+            <div id="A5-text">1</div>
+            <input type="range" id="A5" min="-1" max="2" step=".12" value="0"/>
+        </td>
+    </tr>
+</table>
+
+</body>
+<script>
+    //for the love of god, don't cut and paste this incredibly hacky demo code
+
+    var colorMatrix = document.getElementById("c1");
+    var newValues;
+
+    var R1slider = document.getElementById("R1");
+    var R1display = document.getElementById("R1-text");
+    R1slider.addEventListener('change', changeR1, false);
+
+    var R2slider = document.getElementById("R2");
+    var R2display = document.getElementById("R2-text");
+    R2slider.addEventListener('change', changeR2, false);
+
+    var R3slider = document.getElementById("R3");
+    var R3display = document.getElementById("R3-text");
+    R3slider.addEventListener('change', changeR3, false);
+
+    var R4slider = document.getElementById("R4");
+    var R4display = document.getElementById("R4-text");
+    R4slider.addEventListener('change', changeR4, false);
+
+    var R5slider = document.getElementById("R5");
+    var R5display = document.getElementById("R5-text");
+    R5slider.addEventListener('change', changeR5, false);
+
+    var G1slider = document.getElementById("G1");
+    var G1display = document.getElementById("G1-text");
+    G1slider.addEventListener('change', changeG1, false);
+
+    var G2slider = document.getElementById("G2");
+    var G2display = document.getElementById("G2-text");
+    G2slider.addEventListener('change', changeG2, false);
+
+    var G3slider = document.getElementById("G3");
+    var G3display = document.getElementById("G3-text");
+    G3slider.addEventListener('change', changeG3, false);
+
+    var G4slider = document.getElementById("G4");
+    var G4display = document.getElementById("G4-text");
+    G4slider.addEventListener('change', changeG4, false);
+
+    var G5slider = document.getElementById("G5");
+    var G5display = document.getElementById("G5-text");
+    G5slider.addEventListener('change', changeG5, false);
+
+    var B1slider = document.getElementById("B1");
+    var B1display = document.getElementById("B1-text");
+    B1slider.addEventListener('change', changeB1, false);
+
+    var B2slider = document.getElementById("B2");
+    var B2display = document.getElementById("B2-text");
+    B2slider.addEventListener('change', changeB2, false);
+
+    var B3slider = document.getElementById("B3");
+    var B3display = document.getElementById("B3-text");
+    B3slider.addEventListener('change', changeB3, false);
+
+    var B4slider = document.getElementById("B4");
+    var B4display = document.getElementById("B4-text");
+    B4slider.addEventListener('change', changeB4, false);
+
+    var B5slider = document.getElementById("B5");
+    var B5display = document.getElementById("B5-text");
+    B5slider.addEventListener('change', changeB5, false);
+
+    var A1slider = document.getElementById("A1");
+    var A1display = document.getElementById("A1-text");
+    A1slider.addEventListener('change', changeA1, false);
+
+    var A2slider = document.getElementById("A2");
+    var A2display = document.getElementById("A2-text");
+    A2slider.addEventListener('change', changeA2, false);
+
+    var A3slider = document.getElementById("A3");
+    var A3display = document.getElementById("A3-text");
+    A3slider.addEventListener('change', changeA3, false);
+
+    var A4slider = document.getElementById("A4");
+    var A4display = document.getElementById("A4-text");
+    A4slider.addEventListener('change', changeA4, false);
+
+    var A5slider = document.getElementById("A5");
+    var A5display = document.getElementById("A5-text");
+    A5slider.addEventListener('change', changeA5, false);
+
+    function changeR1() {
+        R1display.innerHTML = Math.round(R1slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeR1();
+
+
+    function changeR2() {
+        R2display.innerHTML = Math.round(R2slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeR2();
+
+    function changeR3() {
+        R3display.innerHTML = Math.round(R3slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeR3();
+
+
+    function changeR4() {
+        R4display.innerHTML = Math.round(R4slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeR4();
+
+    function changeR5() {
+        R5display.innerHTML = Math.round(R5slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeR5();
+
+    function changeG1() {
+        G1display.innerHTML = Math.round(G1slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeG1();
+
+    function changeG2() {
+        G2display.innerHTML = Math.round(G2slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeG2();
+
+    function changeG3() {
+        G3display.innerHTML = Math.round(G3slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeG3();
+
+    function changeG4() {
+        G4display.innerHTML = Math.round(G4slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeG4();
+
+    function changeG5() {
+        G5display.innerHTML = Math.round(G5slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeG5();
+
+    function changeB1() {
+        B1display.innerHTML = Math.round(B1slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeB1();
+
+    function changeB2() {
+        B2display.innerHTML = Math.round(B2slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeB2();
+
+    function changeB3() {
+        B3display.innerHTML = Math.round(B3slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeB3();
+
+    function changeB4() {
+        B4display.innerHTML = Math.round(B4slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeB4();
+
+    function changeB5() {
+        B5display.innerHTML = Math.round(B5slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeB5();
+
+    function changeA1() {
+        A1display.innerHTML = Math.round(A1slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeA1();
+
+
+
+
+    function changeA2() {
+        A2display.innerHTML = Math.round(A2slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeA2();
+
+
+
+
+
+    function changeA3() {
+        A3display.innerHTML = Math.round(A3slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeA3();
+
+
+
+
+
+    function changeA4() {
+        A4display.innerHTML = Math.round(A4slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeA4();
+
+
+
+
+    function changeA5() {
+        A5display.innerHTML = Math.round(A5slider.value*10)/10;
+        newValues = (R1display.innerHTML + " " +
+            R2display.innerHTML + " " +
+            R3display.innerHTML + " " +
+            R4display.innerHTML + " " +
+            R5display.innerHTML + " " +
+            G1display.innerHTML + " " +
+            G2display.innerHTML + " " +
+            G3display.innerHTML + " " +
+            G4display.innerHTML + " " +
+            G5display.innerHTML + " " +
+            B1display.innerHTML + " " +
+            B2display.innerHTML + " " +
+            B3display.innerHTML + " " +
+            B4display.innerHTML + " " +
+            B5display.innerHTML + " " +
+            A1display.innerHTML + " " +
+            A2display.innerHTML + " " +
+            A3display.innerHTML + " " +
+            A4display.innerHTML + " " +
+            A5display.innerHTML);
+        colorMatrix.setAttribute("values", newValues);
+    };
+    changeA5();
+
+
+</script>
+</html>
